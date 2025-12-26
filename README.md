@@ -11,13 +11,13 @@
 
 ### 1. The Dashboard
 The central command center where users select their interview track. Options include pre-configured tracks like **Java Expert**, **HR Round**, and **Database**, or completely **Custom Scenarios**.
-
+![Profile Screenshot](screenshots/dashboard.png)
 
 ### 2. AI Interview Room & Practice Area
 The core practicing interface. Users can generate AI questions based on categories, record their video/audio answers, or upload files and get it reviewed by AI``.
 * **Powered by Ollama:** Generates context-aware technical questions on the fly.
 * **Media Processing:** Uses **FFmpeg** to extract and analyze audio from video recordings for precise transcription.
-
+![Profile Screenshot](screenshots/practice.png)
 
 ### 3. Smart Profile & Analytics
 A comprehensive profile section that tracks progress over time, displaying key metrics like **Total Interviews**, **Average Score**, and **High Scores**. Includes a fully editable personal details form.
