@@ -18,6 +18,8 @@ The core practicing interface. Users can generate AI questions based on categori
 * **Powered by Ollama:** Generates context-aware technical questions on the fly.
 * **Media Processing:** Uses **FFmpeg** to extract and analyze audio from video recordings for precise transcription.
 ![Profile Screenshot](screenshots/practice.png)
+![Profile Screenshot](screenshots/feedback.png)
+
 
 ### 3. Smart Profile & Analytics
 A comprehensive profile section that tracks progress over time, displaying key metrics like **Total Interviews**, **Average Score**, and **High Scores**. Includes a fully editable personal details form.
