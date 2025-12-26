@@ -1,0 +1,33 @@
+/* Container for better readability */
+.mw-800 { max-width: 800px; }
+
+/* The Card Styling */
+.track-card {
+  border-radius: 1rem; /* Rounded-4 */
+  background: #fff;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+/* Hover Effect: Lift & Shadow */
+.track-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* The Icon Circle */
+.icon-bubble {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #f8fafc; /* Fallback */
+}
+
+/* Utility to mix colors */
+.bg-soft-blue { background-color: #eff6ff; color: #3b82f6; }
+.bg-soft-green { background-color: #f0fdf4; color: #22c55e; }
+.bg-soft-purple { background-color: #faf5ff; color: #a855f7; }
+.bg-soft-orange { background-color: #fff7ed; color: #f97316; }
+
+/* Typography */
+.tracking-tight { letter-spacing: -0.02em; }

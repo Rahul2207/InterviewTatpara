@@ -1,0 +1,128 @@
+<div class="container py-5 mt-5">
+  
+  <div class="profile-banner rounded-4 mb-5 position-relative shadow-sm">
+    <div class="banner-overlay rounded-4"></div>
+  </div>
+
+  <div class="row g-4 mt-n5">
+    
+    <div class="col-lg-4 mt-n5">
+      <div class="glass-card p-4 text-center h-100 position-relative" style="margin-top: -60px;">
+        
+        <div class="avatar-container mx-auto mb-3">
+          <div class="avatar-xl bg-white shadow-sm d-flex align-items-center justify-content-center text-primary fw-bold display-4 border border-4 border-white">
+            {{ user.email.charAt(0).toUpperCase() }}
+          </div>
+          <div class="online-badge"></div>
+        </div>
+
+        <h4 class="fw-bold mb-1">{{ user.name || 'User' }} <i class="bi bi-patch-check-fill text-primary small"></i></h4>
+        <p class="text-muted small mb-3">{{ user.email }}</p>
+
+        <div class="d-flex justify-content-center gap-2 mb-4">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ user.role }}</span>
+        </div>
+
+        <button class="btn btn-dark w-100 rounded-pill fw-medium" (click)="toggleEdit()">
+          {{ isEditing ? 'Cancel Editing' : 'Edit Profile' }}
+        </button>
+
+        <hr class="my-4 opacity-10">
+
+        <div class="text-start">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="icon-box bg-light text-secondary"><i class="bi bi-geo-alt-fill"></i></div>
+            <span class="small fw-medium text-dark">{{ user.location }}</span>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="icon-box bg-light text-secondary"><i class="bi bi-calendar-event-fill"></i></div>
+            <span class="small fw-medium text-dark">Joined Dec 2025</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="glass-card p-3 d-flex align-items-center gap-3">
+            <div class="stat-icon bg-primary-subtle text-primary"><i class="bi bi-camera-video-fill"></i></div>
+            <div>
+              <h3 class="fw-bold mb-0">{{ stats.interviewsTaken }}</h3>
+              <p class="text-muted small mb-0">Interviews</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="glass-card p-3 d-flex align-items-center gap-3">
+            <div class="stat-icon bg-success-subtle text-success"><i class="bi bi-bar-chart-fill"></i></div>
+            <div>
+              <h3 class="fw-bold mb-0">{{ stats.avgScore }}</h3>
+              <p class="text-muted small mb-0">Avg Score</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="glass-card p-3 d-flex align-items-center gap-3">
+            <div class="stat-icon bg-warning-subtle text-warning"><i class="bi bi-trophy-fill"></i></div>
+            <div>
+              <h3 class="fw-bold mb-0">{{ stats.highestScore }}</h3>
+              <p class="text-muted small mb-0">High Score</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-4 p-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h5 class="fw-bold m-0">Personal Information</h5>
+          @if(isEditing) { <span class="badge bg-warning text-dark animate-pulse">Editing Mode</span> }
+        </div>
+
+        <form>
+          <div class="row g-4">
+            
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Full Name</label>
+              <input type="text" class="form-control premium-input" [(ngModel)]="user.name" name="name" [disabled]="!isEditing">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Phone</label>
+              <input type="text" class="form-control premium-input" [(ngModel)]="user.phone" name="phone" [disabled]="!isEditing">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Current Role</label>
+              <input type="text" class="form-control premium-input" [(ngModel)]="user.role" name="role" [disabled]="!isEditing">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Target Role</label>
+              <input type="text" class="form-control premium-input" [(ngModel)]="user.targetRole" name="targetRole" [disabled]="!isEditing">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label small fw-bold text-muted">About Me</label>
+              <textarea class="form-control premium-input" rows="3" [(ngModel)]="user.bio" name="bio" [disabled]="!isEditing"></textarea>
+            </div>
+
+          </div>
+
+          @if (isEditing) {
+            <div class="mt-4 text-end fade-in">
+              <button class="btn btn-primary rounded-pill px-5 fw-medium shadow-sm" (click)="saveProfile()" [disabled]="isLoading">
+                @if(isLoading) { <span class="spinner-border spinner-border-sm me-2"></span> Saving... }
+                @else { Save Changes }
+              </button>
+            </div>
+          }
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

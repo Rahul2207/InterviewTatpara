@@ -1,0 +1,76 @@
+<div class="container py-5 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+
+  @if (isLoading) {
+    <div class="text-center fade-in">
+      <div class="spinner-border text-primary mb-4" role="status" style="width: 4rem; height: 4rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h3 class="fw-bold text-dark">Analyzing your Interview...</h3>
+      <p class="text-muted">Our AI is reviewing your answer, tone, and content.</p>
+      <div class="progress mt-3" style="width: 300px; height: 10px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 100%"></div>
+      </div>
+    </div>
+  }
+
+  @else if (interviewData) {
+    <div class="w-100 fade-in" style="max-width: 800px;">
+      
+      <div class="text-center mb-4">
+        <h1 class="fw-bold mb-2">Interview Results</h1>
+        <span class="badge bg-primary px-3 py-2 rounded-pill">{{ interviewData.category }}</span>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+        <div class="card-body p-4 text-center">
+          <h6 class="text-uppercase text-muted fw-bold small tracking-wide mb-2">The Question</h6>
+          <h3 class="fw-bold text-dark mb-0">"{{ interviewData.question || interviewData.questionText }}"</h3>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+        <div class="card-body p-5 text-center text-white transition-all" 
+             [ngClass]="{
+               'bg-success': interviewData.score >= 7, 
+               'bg-warning': interviewData.score < 7 && interviewData.score >= 4, 
+               'bg-danger': interviewData.score < 4
+             }" style="background: linear-gradient(135deg, rgba(0,0,0,0.1), transparent);">
+          <h2 class="display-1 fw-bold mb-0">{{ interviewData.score }}/10</h2>
+          <p class="fs-5 opacity-75 mb-0">Overall Score</p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-3 text-primary d-flex align-items-center gap-2">
+            <span>🤖</span> AI Feedback
+          </h4>
+          <div class="bg-light p-4 rounded-3 text-secondary border-start border-4 border-primary" 
+               style="white-space: pre-line; line-height: 1.6;">
+            {{ interviewData.aiFeedback }}
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-3 text-dark">📝 Your Answer Transcript</h5>
+          <p class="text-muted fst-italic p-3 bg-light rounded-3">
+            "{{ interviewData.userAnswer }}"
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-5 d-flex justify-content-center gap-3">
+        <button routerLink="/interview" class="btn btn-primary rounded-pill px-4 py-2 fw-medium shadow-sm">
+          Practice Another
+        </button>
+        <button routerLink="/dashboard" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-medium">
+          Back to Dashboard
+        </button>
+      </div>
+
+    </div>
+  }
+
+</div>

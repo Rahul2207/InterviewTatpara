@@ -1,0 +1,87 @@
+<div class="signup-container d-flex align-items-center justify-content-center min-vh-100">
+  
+  <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="max-width: 450px; width: 100%;">
+    
+    <div class="card-body p-5">
+      
+      <div class="text-center mb-4">
+        <div class="logo-icon mb-3 fs-1">🚀</div>
+        <h2 class="fw-bold text-dark mb-1">Create an account</h2>
+        <p class="text-secondary small">Join thousands of candidates practicing today.</p>
+      </div>
+
+      <button class="btn btn-white border w-100 py-2 rounded-3 d-flex align-items-center justify-content-center gap-2 mb-3 hover-lift">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="20">
+        <span class="fw-medium small">Sign up with Google</span>
+      </button>
+
+      <div class="d-flex align-items-center my-3">
+        <hr class="flex-grow-1 border-secondary opacity-10">
+        <span class="px-2 text-muted x-small uppercase">OR EMAIL</span>
+        <hr class="flex-grow-1 border-secondary opacity-10">
+      </div>
+
+      <form (ngSubmit)="onSignup()">
+        
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-secondary">Full Name</label>
+          <input type="text" 
+                 class="form-control form-control-lg bg-light border-0 fs-6" 
+                 placeholder="John Doe"
+                 [(ngModel)]="user.name" 
+                 name="name" 
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-secondary">Email Address</label>
+          <input type="email" 
+                 class="form-control form-control-lg bg-light border-0 fs-6" 
+                 placeholder="name@company.com"
+                 [(ngModel)]="user.email" 
+                 name="email" 
+                 required>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label small fw-bold text-secondary">Password</label>
+          <input type="password" 
+                 class="form-control form-control-lg bg-light border-0 fs-6" 
+                 placeholder="Create a strong password"
+                 [(ngModel)]="user.password" 
+                 name="password" 
+                 required 
+                 minlength="6">
+          <div class="form-text x-small text-muted mt-2">
+            Must be at least 6 characters long.
+          </div>
+        </div>
+
+        @if (error) {
+          <div class="alert alert-danger py-2 small text-center mb-3 border-0 bg-danger-subtle text-danger fw-medium">
+            {{ error }}
+          </div>
+        }
+
+        <button class="btn btn-dark w-100 py-3 rounded-3 fw-bold shadow-sm transition-all" 
+                [disabled]="loading">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-2"></span> Creating Account...
+          } @else {
+            Get Started
+          }
+        </button>
+
+      </form>
+
+    </div>
+
+    <div class="card-footer bg-light border-0 text-center py-3">
+      <p class="mb-0 small text-secondary">
+        Already have an account? 
+        <a routerLink="/login" class="text-primary fw-bold text-decoration-none">Log in</a>
+      </p>
+    </div>
+
+  </div>
+</div>

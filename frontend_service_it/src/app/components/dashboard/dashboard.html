@@ -1,0 +1,51 @@
+<div class="container py-5">
+  
+  <div class="text-center mb-5 mw-800 mx-auto">
+    <h1 class="display-5 fw-bold text-dark mb-3 tracking-tight">Ready to practice?</h1>
+    <p class="lead text-secondary mx-auto" style="max-width: 600px;">
+      Select an interview track below. Our AI will simulate a real interview and provide instant, actionable feedback.
+    </p>
+  </div>
+
+  <div class="row g-4">
+    @for (track of tracks; track track.id) {
+      <div class="col-12 col-md-6 col-lg-3">
+        
+        <div class="card h-100 border-0 shadow-sm track-card p-2" 
+             (click)="go(track.id)" 
+             tabindex="0"
+             (keydown.enter)="go(track.id)">
+          
+          <div class="card-body text-center d-flex flex-column align-items-center">
+            <div class="icon-bubble mb-4 d-flex align-items-center justify-content-center fs-2"
+                 [ngClass]="track.colorBg">
+              {{ track.icon }}
+            </div>
+
+            <h5 class="fw-bold mb-2">{{ track.title }}</h5>
+            <p class="text-secondary small mb-4 flex-grow-1 px-2">
+              {{ track.desc }}
+            </p>
+
+            <span class="btn btn-outline-dark rounded-pill px-4 btn-sm fw-medium stretched-link">
+              Start Round
+            </span>
+          </div>
+        </div>
+
+      </div>
+    }
+  </div>
+
+  <div class="mt-5 pt-5 border-top">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <span class="text-secondary small fw-medium">
+        🚀 <strong>1,240</strong> interviews conducted today
+      </span>
+      <span class="text-secondary small fw-medium">
+        ⭐ <strong>4.8/5</strong> average user rating
+      </span>
+    </div>
+  </div>
+
+</div>

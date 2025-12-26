@@ -1,0 +1,153 @@
+<div class="container-fluid px-4 py-4">
+  
+  <div class="row g-4">
+
+    <div class="col-lg-8">
+      
+      <a routerLink="/dashboard" class="text-decoration-none text-secondary small mb-3 d-inline-block hover-dark">
+        &larr; Back to Dashboard
+      </a>
+
+      <div class="card border-0 shadow-sm rounded-4 mb-3">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <label class="text-muted small fw-bold text-uppercase">Current Question</label>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill">
+              {{ category }}
+            </span>
+          </div>
+          <textarea class="form-control form-control-lg border-0 bg-light rounded-3 shadow-none" 
+                    rows="2" 
+                    [(ngModel)]="question"
+                    placeholder="Select a question from the right or type here..."></textarea>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-lg overflow-hidden rounded-4">
+        
+        <div class="bg-light p-2 d-flex gap-2 border-bottom">
+          <button class="btn flex-fill fw-medium rounded-3 transition-all"
+                  [class.btn-white-shadow]="mode === 'record'"
+                  [class.text-muted]="mode !== 'record'"
+                  (click)="setMode('record'); startCamera()">
+            🎥 Record Video
+          </button>
+          <button class="btn flex-fill fw-medium rounded-3 transition-all"
+                  [class.btn-white-shadow]="mode === 'upload'"
+                  [class.text-muted]="mode !== 'upload'"
+                  (click)="setMode('upload')">
+            📂 Upload File
+          </button>
+        </div>
+
+        <div class="card-body p-4 bg-white">
+          
+          @if (mode === 'record') {
+            <div class="video-studio bg-black rounded-3 overflow-hidden position-relative mb-4" style="aspect-ratio: 16/9;">
+              <video #videoPreview [hidden]="recordedUrl" autoplay muted playsinline class="w-100 h-100 object-fit-cover"></video>
+              @if (recordedUrl) { <video [src]="recordedUrl" controls class="w-100 h-100 object-fit-cover"></video> }
+              @if (isRecording) { <div class="position-absolute top-0 end-0 m-3"><span class="badge bg-danger animate-pulse">🔴 REC</span></div> }
+            </div>
+            
+            <div class="d-flex justify-content-center gap-2">
+              @if (!recordedUrl) {
+                @if (!isRecording) { <button class="btn btn-danger rounded-pill px-4" (click)="startRec()">Start Recording</button> } 
+                @else { <button class="btn btn-dark rounded-pill px-4" (click)="stopRec()">Stop Recording</button> }
+              } @else {
+                <button class="btn btn-outline-secondary rounded-pill" (click)="setMode('record'); startCamera()">Retake</button>
+              }
+            </div>
+          }
+
+          @if (mode === 'upload') {
+            <div class="upload-zone text-center p-5 border rounded-3 bg-light mb-4 dashed-border">
+              <div class="mb-3 fs-1">📂</div>
+              <h5 class="fw-bold">Drag & Drop</h5>
+              <input type="file" class="form-control mt-3" (change)="onFile($event)" accept="video/*">
+            </div>
+          }
+
+          <div class="mt-4 pt-3 border-top">
+            <button class="btn btn-dark w-100 py-3 rounded-3 fw-bold shadow-sm"
+                    (click)="submit()" 
+                    [disabled]="loading || (!file && !recordedUrl) || !question || !category">
+              @if (loading) { <span class="spinner-border spinner-border-sm me-2"></span> Analyzing... } @else { Submit Answer }
+            </button>
+            @if (!category) { <small class="text-danger d-block text-center mt-2">Category is required.</small> }
+          </div>
+          
+          @if (message) {
+            <div class="alert mt-3 rounded-3 text-center small fw-medium" [ngClass]="isError ? 'alert-danger' : 'alert-success'">{{ message }}</div>
+          }
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-4">
+      
+      <div class="card border-0 shadow-sm rounded-4 mb-3 bg-gradient-primary-subtle">
+        <div class="card-body p-4">
+          <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+            <span>⚙️</span> Session Settings
+          </h6>
+          
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">Interview Category</label>
+            <input type="text" 
+                   class="form-control border-0 shadow-sm fw-bold text-primary" 
+                   [(ngModel)]="category" 
+                   placeholder="e.g. Java, HR, Sales..."
+                   (keyup.enter)="generateAiQuestions()">
+          </div>
+
+          <button class="btn btn-dark w-100 shadow-sm" (click)="generateAiQuestions()" [disabled]="isGenerating || !category">
+            @if(isGenerating){ <span class="spinner-border spinner-border-sm me-2"></span> Generating... } @else { ✨ Generate Questions }
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="max-height: 65vh; overflow-y: auto;">
+        <div class="card-header bg-white fw-bold py-3 border-bottom d-flex justify-content-between align-items-center">
+          <span>📚 Question Queue</span>
+          <span class="badge bg-light text-secondary border">{{ questionsList.length }}</span>
+        </div>
+        
+        <div class="list-group list-group-flush">
+          @for (item of questionsList; track $index) {
+            <button type="button" 
+                    class="list-group-item list-group-item-action py-3 px-3 border-bottom position-relative"
+                    [class.active-question]="item.status === 'active'"
+                    [class.completed-question]="item.status === 'completed'"
+                    (click)="selectQuestion($index)">
+              
+              <div class="d-flex align-items-start gap-3">
+                <div class="mt-1 flex-shrink-0" style="width: 20px;">
+                  @if (item.status === 'completed') { <span class="text-success">✅</span> } 
+                  @else if (item.status === 'active') { <span class="text-primary animate-pulse">▶️</span> } 
+                  @else { <span class="text-muted opacity-50">⚪</span> }
+                </div>
+                <div class="w-100">
+                  <div class="small fw-medium text-break" [class.text-decoration-line-through]="item.status === 'completed'">
+                    {{ item.text }}
+                  </div>
+                </div>
+              </div>
+            </button>
+          }
+
+          @if (questionsList.length === 0) {
+            <div class="p-5 text-center">
+              <div class="fs-1 mb-2 opacity-50">📋</div>
+              <h6 class="fw-bold text-secondary">No questions yet</h6>
+              <p class="text-muted small">Enter a category above to start.</p>
+            </div>
+          }
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,5 @@
+.main-content {
+  padding-top: 100px; /* Adjust this value if your nav is taller */
+  min-height: 100vh;  /* Ensures the page always fills the screen */
+  background-color: #f8fafc; /* Optional: Light grey background for the whole app */
+}

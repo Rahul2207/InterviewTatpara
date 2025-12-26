@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg fixed-top glass-navbar">
+  <div class="container">
+    
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+      <img src="images/newlogo2.png" alt="Brand Logo" style="height: 40px; width: auto;">
+      <span class="fw-bold tracking-tight text-dark fs-5">
+        Interview<span class="text-primary">Tatpara</span>
+      </span>
+    </a>
+
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-3"> <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-nav">
+            Dashboard
+          </a>
+        </li>
+        @if(isLoggedIn){
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/interview/CUSTOM" routerLinkActive="active-nav">
+            Practice
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/history" routerLinkActive="active-nav">
+            History
+          </a>
+        </li>
+      }
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active-nav">
+            About Us
+          </a>
+        </li>
+        
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        @if (!isLoggedIn) {
+          <a routerLink="/login" class="btn btn-link text-decoration-none text-muted fw-bold" style="font-size: 0.95rem;">Log in</a>
+          <a routerLink="/register" class="btn btn-dark rounded-pill px-4 fw-bold shadow-sm">Sign up</a>
+        } @else {
+          <div class="dropdown">
+            <button class="btn btn-user d-flex align-items-center gap-2 rounded-pill" type="button" data-bs-toggle="dropdown">
+              <div class="avatar-circle bg-primary text-white">
+                {{ userEmail?.charAt(0)?.toUpperCase() }}
+              </div>
+              <span class="d-none d-md-block fw-bold text-dark pe-1" style="font-size: 0.9rem;">Account</span>
+              <i class="bi bi-chevron-down small text-muted"></i>
+            </button>
+            
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-3 p-2">
+              <li><h6 class="dropdown-header small text-uppercase fw-bold text-muted">Signed in as</h6></li>
+              <li class="px-3 pb-2 mb-2 border-bottom"><small class="fw-bold text-dark">{{ userEmail }}</small></li>
+              <li><a class="dropdown-item rounded-3" routerLink="/profile">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item rounded-3 text-danger" (click)="logout()">Log out</button></li>
+            </ul>
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+</nav>

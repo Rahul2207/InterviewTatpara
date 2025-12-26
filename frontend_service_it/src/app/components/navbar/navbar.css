@@ -1,0 +1,211 @@
+/* --- Glass Navbar Base --- */
+.glass-navbar {
+  background: rgba(255, 255, 255, 0.85); /* 85% opacity white */
+  backdrop-filter: blur(12px);           /* The Blur Effect */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.75rem 0;
+  transition: all 0.3s ease;
+}
+
+/* On Scroll: Add slightly more shadow (Optional JS needed to toggle class) */
+.glass-navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}/* --- Glass Navbar Base --- */
+.glass-navbar {
+  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for contrast */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.85rem 0; /* Slightly taller */
+  transition: all 0.3s ease;
+}
+
+/* --- Brand Icon --- */
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #0d6efd, #0043a8);
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+}
+
+.tracking-tight { letter-spacing: -0.5px; }
+
+/* --- NAVIGATION LINKS (The New Style) --- */
+.nav-link {
+  color: #6c757d; /* Muted gray by default */
+  font-weight: 600; /* Semi-bold */
+  font-size: 1.05rem; /* Bigger Text */
+  padding: 0.5rem 1rem !important;
+  position: relative; /* Needed for absolute underline */
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #000;
+}
+
+/* --- THE GRADIENT UNDERLINE --- */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%; /* Start slightly inward */
+  width: 80%; /* Don't span full width */
+  height: 3px; /* Thickness */
+  
+  /* The Magic Gradient: Transparent -> Blue -> Transparent */
+  background: linear-gradient(90deg, transparent 0%, #0d6efd 50%, transparent 100%);
+  
+  border-radius: 100%; /* Softens the ends vertically */
+  opacity: 0;
+  transform: translateY(5px); /* Start slightly lower */
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy effect */
+}
+
+/* --- ACTIVE STATE --- */
+/* This class is added by Angular when the route matches */
+.active-nav {
+  color: #0d6efd !important; /* Text turns blue */
+}
+
+.active-nav::after {
+  opacity: 1;
+  transform: translateY(0); /* Slide up to position */
+}
+
+/* --- User Profile Area --- */
+.btn-user {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 4px 16px 4px 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-user:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+.avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* --- Brand Icon --- */
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+}
+
+.tracking-tight { letter-spacing: -0.5px; }
+
+/* --- Navigation Links (Pill Style) --- */
+.nav-link {
+  color: #555;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #000;
+  background-color: rgba(0,0,0,0.03);
+}
+
+/* Active State (The Pill) */
+.active-pill {
+  background-color: #000 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* --- User Profile Area --- */
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover { background: #f0f2f5; }
+
+.btn-user {
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.btn-user:hover, .show > .btn-user {
+  background: #f8f9fa;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+  border-color: #dee2e6 !important;
+}
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+/* Dropdown Animation */
+.dropdown-menu {
+  animation: slideIn 0.2s ease-out;
+  transform-origin: top right;
+}
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dropdown-item {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+
+.dropdown-item:active { background-color: #f0f0f0; color: #000; }
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 991px) {
+  .bg-light-mobile {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    margin-top: 15px;
+  }
+  .brand-logo {
+  height: 20px;       /* Adjusts height to fit navbar */
+  width: auto;        /* Keeps aspect ratio */
+  margin-right: 10px; /* Adds space between logo and text */
+  object-fit: contain;
+  cursor: pointer;
+}
+  .nav-link { justify-content: flex-start; }
+}

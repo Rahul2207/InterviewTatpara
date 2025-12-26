@@ -1,0 +1,63 @@
+/* --- Studio Vibes --- */
+.video-studio {
+  background-color: #000;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* --- Segmented Control (The Tab Switcher) --- */
+.btn-white-shadow {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  color: #000;
+}
+
+.dashed-border {
+  border-style: dashed !important;
+  border-width: 2px !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* --- Animations --- */
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.hover-dark:hover {
+  color: #000 !important;
+  text-decoration: underline !important;
+}
+
+/* Active Question (Selected) */
+.active-question {
+  background-color: #f0f8ff; /* Light Blue */
+  border-left: 4px solid #0d6efd; /* Primary Blue Stripe */
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* Completed Question (Done) */
+.completed-question {
+  background-color: #f8f9fa; /* Light Grey */
+  opacity: 0.7;
+  color: #198754; /* Green Text */
+  border-left: 4px solid #198754;
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #fafafa;
+}

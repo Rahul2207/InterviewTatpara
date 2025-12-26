@@ -1,0 +1,47 @@
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">Your Interview History</h2>
+
+  <div class="row g-4">
+    @for (item of historyList; track item.id) {
+      <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-4">
+            
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <span class="badge bg-light text-primary border mb-2">{{ item.category }}</span>
+                <h5 class="fw-bold mb-1">{{ item.questionText }}</h5>
+                <small class="text-muted">{{ item.createdAt | date:'medium' }}</small>
+              </div>
+              <div class="text-center">
+                <h3 class="fw-bold mb-0" [class.text-success]="item.score >= 7" [class.text-warning]="item.score < 7">
+                  {{ item.score }}/10
+                </h3>
+                <small class="text-muted">Score</small>
+              </div>
+            </div>
+
+            <div class="bg-light p-3 rounded-3 mb-3">
+              <strong class="d-block mb-1 text-secondary small">Your Answer:</strong>
+              <p class="mb-0 text-dark small fst-italic">"{{ item.userAnswer | slice:0:150 }}..."</p>
+            </div>
+
+            <div class="alert alert-success border-0 bg-opacity-10 bg-success mb-0">
+              <strong class="d-block mb-1 text-success small">AI Feedback:</strong>
+              <p class="mb-0 small">{{ item.aiFeedback }}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    }
+    
+    @if (historyList.length === 0) {
+      <div class="text-center py-5">
+        <div class="fs-1 mb-3">📂</div>
+        <p class="text-secondary">No interviews found. Start practicing!</p>
+        <button routerLink="/dashboard" class="btn btn-dark rounded-pill px-4">Go to Dashboard</button>
+      </div>
+    }
+  </div>
+</div>
